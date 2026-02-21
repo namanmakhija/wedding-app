@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeddingOS — Mockups</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose:       #c9736c;
+      --rose-light: #f5ebe9;
+      --rose-mid:   #e8c8c4;
+      --sand:       #f7f3ef;
+      --sand-dark:  #ede8e3;
+      --text:       #1a1614;
+      --text-mid:   #6b5e58;
+      --text-light: #a8998f;
+      --white:      #ffffff;
+      --border:     #e8e2dd;
+      --green:      #5a8a6a;
+      --green-bg:   #eaf2ec;
+      --blue:       #4a6fa5;
+      --blue-bg:    #eaf0fa;
+      --yellow:     #b89a3e;
+      --yellow-bg:  #fdf6e3;
+      --sidebar-w:  220px;
+      --radius:     10px;
+      --shadow:     0 2px 12px rgba(0,0,0,0.06);
+      --shadow-lg:  0 8px 32px rgba(0,0,0,0.10);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #eee9e5;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ─── Screen switcher ─── */
+    .switcher {
+      display: flex;
+      gap: 8px;
+      padding: 16px 24px;
+      background: var(--text);
+      align-items: center;
+    }
+    .switcher-label {
+      color: #aaa;
+      font-size: 12px;
+      font-weight: 500;
+      margin-right: 8px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+    .switcher button {
+      padding: 7px 16px;
+      border-radius: 6px;
+      border: 1px solid #444;
+      background: transparent;
+      color: #ccc;
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .switcher button.active,
+    .switcher button:hover {
+      background: var(--rose);
+      border-color: var(--rose);
+      color: white;
+    }
+
+    /* ─── Shared app shell ─── */
+    .screen { display: none; height: calc(100vh - 49px); overflow: hidden; }
+    .screen.visible { display: flex; flex-direction: column; }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 56px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .logo {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--rose);
+      letter-spacing: -.02em;
+    }
+    .logo span { color: var(--text); }
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--rose-mid);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 600; color: var(--rose);
+    }
+    .topbar-name { font-size: 14px; font-weight: 500; color: var(--text-mid); }
+    .icon-btn {
+      width: 32px; height: 32px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+
+    .app-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* ─── Sidebar ─── */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--sand);
+      border-right: 1px solid var(--border);
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+    .sidebar-section {
+      padding: 14px 16px 4px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-light);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+      color: var(--text-mid);
+      cursor: pointer;
+      border-radius: 0;
+      transition: background .1s;
+    }
+    .nav-item:hover { background: var(--sand-dark); }
+    .nav-item.active {
+      background: var(--rose-light);
+      color: var(--rose);
+      font-weight: 500;
+    }
+    .nav-item .icon { width: 18px; text-align: center; font-size: 15px; }
+    .nav-item .badge {
+      margin-left: auto;
+      background: var(--rose);
+      color: white;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 99px;
+    }
+    .sidebar-cta {
+      margin: 12px 12px 0;
+      padding: 10px 14px;
+      background: var(--rose);
+      color: white;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    /* ─── Main content ─── */
+    .main { flex: 1; overflow-y: auto; background: var(--sand); }
+    .main-inner { padding: 28px 32px; max-width: 900px; }
+
+    .page-title { font-size: 22px; font-weight: 700; letter-spacing: -.02em; }
+    .page-sub { font-size: 14px; color: var(--text-mid); margin-top: 3px; }
+
+    /* ─── Stat cards ─── */
+    .stat-row { display: flex; gap: 16px; margin-top: 24px; }
+    .stat-card {
+      flex: 1;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    .stat-label { font-size: 12px; color: var(--text-light); font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+    .stat-value { font-size: 26px; font-weight: 700; margin-top: 6px; letter-spacing: -.02em; }
+    .stat-sub { font-size: 13px; color: var(--text-mid); margin-top: 4px; }
+    .progress-bar {
+      height: 6px;
+      background: var(--sand-dark);
+      border-radius: 99px;
+      margin-top: 10px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--rose);
+      border-radius: 99px;
+    }
+    .stat-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 99px;
+      margin-top: 8px;
+    }
+    .badge-green { background: var(--green-bg); color: var(--green); }
+    .badge-yellow { background: var(--yellow-bg); color: var(--yellow); }
+
+    /* ─── Section headers ─── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+    .section-title { font-size: 15px; font-weight: 600; }
+    .section-link { font-size: 13px; color: var(--rose); cursor: pointer; }
+
+    /* ─── Upcoming list ─── */
+    .event-list { display: flex; flex-direction: column; gap: 8px; }
+    .event-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      box-shadow: var(--shadow);
+    }
+    .event-date {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--rose);
+      width: 44px;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .event-date span { display: block; font-size: 10px; font-weight: 500; color: var(--text-light); }
+    .event-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rose-mid); flex-shrink: 0; }
+    .event-name { font-size: 14px; font-weight: 500; }
+    .event-vendor { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+    .event-chip {
+      margin-left: auto;
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 99px;
+    }
+
+    /* ─── Message previews ─── */
+    .msg-list { display: flex; flex-direction: column; gap: 8px; }
+    .msg-preview {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: box-shadow .15s;
+    }
+    .msg-preview:hover { box-shadow: var(--shadow-lg); }
+    .msg-channel {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      min-width: 120px;
+    }
+    .msg-channel span { color: var(--text-light); font-weight: 400; }
+    .msg-text { font-size: 13px; color: var(--text-mid); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .msg-time { font-size: 11px; color: var(--text-light); flex-shrink: 0; }
+    .unread-dot { width: 8px; height: 8px; background: var(--rose); border-radius: 50%; flex-shrink: 0; }
+
+    /* ════════════════════════════════
+       SCREEN 2 — Marketplace
+    ════════════════════════════════ */
+    .search-bar {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .search-input {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 16px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text-mid);
+      box-shadow: var(--shadow);
+    }
+    .filter-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .category-pills {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+    .pill {
+      padding: 7px 16px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--text-mid);
+      transition: all .15s;
+    }
+    .pill.active, .pill:hover {
+      background: var(--rose);
+      border-color: var(--rose);
+      color: white;
+    }
+
+    .vendor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .vendor-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: box-shadow .15s, transform .15s;
+    }
+    .vendor-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+    .vendor-photo {
+      height: 140px;
+      background: linear-gradient(135deg, var(--rose-mid), var(--sand-dark));
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .vendor-photo-emoji { font-size: 36px; }
+    .vendor-available {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 99px;
+    }
+    .vendor-booked-tag { background: rgba(255,255,255,0.9); color: var(--green); }
+    .vendor-avail-tag { background: rgba(255,255,255,0.9); color: var(--green); }
+    .vendor-unavail-tag { background: rgba(255,255,255,0.9); color: var(--text-light); }
+
+    .vendor-info { padding: 16px; }
+    .vendor-name { font-size: 15px; font-weight: 600; }
+    .vendor-type { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+    .stars { color: var(--yellow); font-size: 13px; margin-top: 8px; }
+    .stars span { color: var(--text-mid); font-size: 12px; }
+    .vendor-price { font-size: 13px; font-weight: 500; color: var(--text-mid); margin-top: 4px; }
+    .vendor-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .btn {
+      flex: 1;
+      padding: 8px 0;
+      border-radius: 7px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all .15s;
+    }
+    .btn-primary { background: var(--rose); color: white; }
+    .btn-primary:hover { background: #b5625b; }
+    .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-mid); }
+    .btn-outline:hover { background: var(--sand-dark); }
+
+    /* ════════════════════════════════
+       SCREEN 3 — Workspace
+    ════════════════════════════════ */
+    .workspace-body {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .channel-sidebar {
+      width: 220px;
+      background: #2a1f1c;
+      color: #c8b8b2;
+      padding: 16px 0;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+    .workspace-name {
+      padding: 0 16px 14px;
+      font-size: 15px;
+      font-weight: 700;
+      color: white;
+      border-bottom: 1px solid #3d2f2b;
+      margin-bottom: 8px;
+    }
+    .workspace-name span { font-size: 12px; font-weight: 400; color: #7a6560; display: block; margin-top: 2px; }
+    .channel-section {
+      padding: 12px 16px 4px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #7a6560;
+    }
+    .channel-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      font-size: 14px;
+      color: #c8b8b2;
+      cursor: pointer;
+      transition: background .1s;
+      border-radius: 0;
+    }
+    .channel-item:hover { background: rgba(255,255,255,.06); }
+    .channel-item.active { background: var(--rose); color: white; }
+    .channel-item .ch-badge {
+      margin-left: auto;
+      background: var(--rose);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 99px;
+    }
+    .channel-item.active .ch-badge { background: rgba(255,255,255,.3); }
+    .ch-add {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: #7a6560;
+      cursor: pointer;
+    }
+    .ch-add:hover { color: #c8b8b2; }
+
+    /* Chat area */
+    .chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      overflow: hidden;
+    }
+    .chat-header {
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .chat-channel-name { font-size: 16px; font-weight: 700; }
+    .chat-channel-sub { font-size: 12px; color: var(--text-light); margin-top: 1px; }
+    .chat-header-right { margin-left: auto; display: flex; gap: 10px; }
+    .header-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-mid);
+      cursor: pointer;
+    }
+
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .msg-group { display: flex; gap: 14px; }
+    .msg-ava {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700;
+      margin-top: 2px;
+    }
+    .ava-vendor { background: var(--rose-light); color: var(--rose); }
+    .ava-couple { background: var(--blue-bg); color: var(--blue); }
+    .msg-content { flex: 1; }
+    .msg-meta { display: flex; align-items: baseline; gap: 10px; margin-bottom: 5px; }
+    .msg-author { font-size: 14px; font-weight: 600; }
+    .msg-author-tag {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 99px;
+      vertical-align: middle;
+    }
+    .tag-vendor { background: var(--rose-light); color: var(--rose); }
+    .tag-couple { background: var(--blue-bg); color: var(--blue); }
+    .msg-ts { font-size: 12px; color: var(--text-light); }
+    .msg-body { font-size: 14px; line-height: 1.6; color: var(--text); }
+
+    .attachment {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 8px;
+      padding: 9px 14px;
+      background: var(--sand);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-mid);
+      cursor: pointer;
+    }
+    .attachment:hover { background: var(--sand-dark); }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-light);
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .chat-input-area {
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .chat-input-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--sand);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 16px;
+    }
+    .chat-input {
+      flex: 1;
+      border: none;
+      background: none;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text);
+      outline: none;
+    }
+    .chat-input::placeholder { color: var(--text-light); }
+    .chat-icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 17px;
+      color: var(--text-light);
+      padding: 2px;
+    }
+    .chat-icon-btn:hover { color: var(--text-mid); }
+    .send-btn {
+      background: var(--rose);
+      border: none;
+      border-radius: 7px;
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: white;
+      font-size: 16px;
+      transition: background .15s;
+    }
+    .send-btn:hover { background: #b5625b; }
+
+    /* right panel */
+    .details-panel {
+      width: 240px;
+      border-left: 1px solid var(--border);
+      background: var(--sand);
+      padding: 20px 16px;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+    .dp-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text-light); margin-bottom: 10px; }
+    .dp-vendor {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .dp-vendor:last-child { border-bottom: none; }
+    .dp-ava {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: var(--rose-light);
+      color: var(--rose);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+    }
+    .dp-name { font-size: 13px; font-weight: 500; }
+    .dp-role { font-size: 11px; color: var(--text-light); }
+    .dp-files { margin-top: 16px; }
+    .dp-file {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-mid);
+      cursor: pointer;
+    }
+    .dp-file:hover { color: var(--rose); }
+    .dp-file:last-child { border-bottom: none; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+      .stat-row { flex-wrap: wrap; }
+      .vendor-grid { grid-template-columns: 1fr 1fr; }
+      .details-panel { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Screen switcher -->
+<div class="switcher">
+  <span class="switcher-label">Mockup screens</span>
+  <button class="active" onclick="show('dashboard', this)">1 · Dashboard</button>
+  <button onclick="show('marketplace', this)">2 · Marketplace</button>
+  <button onclick="show('workspace', this)">3 · Workspace</button>
+</div>
+
+<!-- ════════════════════════════════════════════
+     SCREEN 1 — COUPLE DASHBOARD
+════════════════════════════════════════════ -->
+<div id="dashboard" class="screen visible">
+  <div class="topbar">
+    <div class="logo">Wedding<span>OS</span></div>
+    <div class="topbar-right">
+      <button class="icon-btn">🔔</button>
+      <button class="icon-btn">⚙</button>
+      <div class="avatar">SJ</div>
+      <span class="topbar-name">Sarah & James</span>
+    </div>
+  </div>
+  <div class="app-body">
+    <div class="sidebar">
+      <div class="nav-item active"><span class="icon">🏠</span> Overview</div>
+      <div class="nav-item"><span class="icon">💬</span> Workspace <span class="badge">3</span></div>
+      <div class="nav-item"><span class="icon">🛍</span> Vendors</div>
+      <div class="nav-item"><span class="icon">✅</span> Checklist</div>
+      <div class="nav-item"><span class="icon">💰</span> Budget</div>
+      <div class="nav-item"><span class="icon">👥</span> Guests</div>
+      <div class="nav-item"><span class="icon">📅</span> Timeline</div>
+      <div class="sidebar-cta">+ Find Vendors</div>
+    </div>
+    <div class="main">
+      <div class="main-inner">
+        <div class="page-title">Sarah & James · Oct 12, 2026</div>
+        <div class="page-sub">234 days to go · Chicago, IL</div>
+
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-label">Budget</div>
+            <div class="stat-value">$42,000</div>
+            <div class="stat-sub">of $60,000 allocated</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:70%"></div></div>
+            <div class="stat-badge badge-yellow">⚠ 30% remaining</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Vendors</div>
+            <div class="stat-value">8</div>
+            <div class="stat-sub">2 pending confirmation</div>
+            <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:4px;">
+              <span class="stat-badge badge-green">✓ Venue</span>
+              <span class="stat-badge badge-green">✓ Photo</span>
+              <span class="stat-badge badge-yellow">⏳ Catering</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Checklist</div>
+            <div class="stat-value">12 <span style="font-size:16px;color:var(--text-light)">/ 20</span></div>
+            <div class="stat-sub">tasks completed</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:60%;background:var(--green)"></div></div>
+            <div class="stat-badge badge-green">On track ✓</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Guests</div>
+            <div class="stat-value">124</div>
+            <div class="stat-sub">74 confirmed · 50 pending</div>
+            <div class="progress-bar"><div class="progress-fill" style="width:60%;background:var(--blue)"></div></div>
+            <div class="stat-badge" style="background:var(--blue-bg);color:var(--blue)">RSVPs open</div>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <span class="section-title">Upcoming</span>
+          <span class="section-link">View full timeline →</span>
+        </div>
+        <div class="event-list">
+          <div class="event-item">
+            <div class="event-date">5<span>Mar</span></div>
+            <div class="event-dot"></div>
+            <div>
+              <div class="event-name">Cake tasting</div>
+              <div class="event-vendor">Sweet Crumbs Bakery · 2pm</div>
+            </div>
+            <span class="event-chip badge-yellow">Upcoming</span>
+          </div>
+          <div class="event-item">
+            <div class="event-date">12<span>Mar</span></div>
+            <div class="event-dot"></div>
+            <div>
+              <div class="event-name">Venue walkthrough</div>
+              <div class="event-vendor">The Grove Estate · 10am</div>
+            </div>
+            <span class="event-chip badge-green">Confirmed</span>
+          </div>
+          <div class="event-item">
+            <div class="event-date">20<span>Mar</span></div>
+            <div class="event-dot"></div>
+            <div>
+              <div class="event-name">Dress fitting #2</div>
+              <div class="event-vendor">Ivory & Grace Bridal</div>
+            </div>
+            <span class="event-chip" style="background:var(--blue-bg);color:var(--blue)">Scheduled</span>
+          </div>
+        </div>
+
+        <div class="section-header">
+          <span class="section-title">Recent messages</span>
+          <span class="section-link">Open workspace →</span>
+        </div>
+        <div class="msg-list">
+          <div class="msg-preview">
+            <div class="unread-dot"></div>
+            <div class="msg-channel"># photography</div>
+            <div class="msg-text">Alex: Can we schedule the engagement shoot before the summer ends?</div>
+            <div class="msg-time">2h ago</div>
+          </div>
+          <div class="msg-preview">
+            <div class="unread-dot"></div>
+            <div class="msg-channel"># catering</div>
+            <div class="msg-text">Harvest Table: The updated menu draft is attached for your review</div>
+            <div class="msg-time">Yesterday</div>
+          </div>
+          <div class="msg-preview">
+            <div style="width:8px;height:8px;flex-shrink:0;"></div>
+            <div class="msg-channel"># general</div>
+            <div class="msg-text">Mom: Should we do a rehearsal dinner the night before?</div>
+            <div class="msg-time">2d ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     SCREEN 2 — VENDOR MARKETPLACE
+════════════════════════════════════════════ -->
+<div id="marketplace" class="screen">
+  <div class="topbar">
+    <div class="logo">Wedding<span>OS</span></div>
+    <div class="topbar-right">
+      <button class="icon-btn">🔔</button>
+      <div class="avatar">SJ</div>
+      <span class="topbar-name">Sarah & James</span>
+    </div>
+  </div>
+  <div class="app-body">
+    <div class="sidebar">
+      <div class="nav-item"><span class="icon">🏠</span> Overview</div>
+      <div class="nav-item"><span class="icon">💬</span> Workspace</div>
+      <div class="nav-item active"><span class="icon">🛍</span> Vendors</div>
+      <div class="nav-item"><span class="icon">✅</span> Checklist</div>
+      <div class="nav-item"><span class="icon">💰</span> Budget</div>
+      <div class="nav-item"><span class="icon">👥</span> Guests</div>
+      <div class="nav-item"><span class="icon">📅</span> Timeline</div>
+    </div>
+    <div class="main">
+      <div class="main-inner">
+        <div class="page-title">Find Vendors</div>
+        <div class="page-sub">Chicago, IL · Oct 12, 2026 — showing availability for your date</div>
+
+        <div class="search-bar">
+          <div class="search-input">🔍&nbsp; Search photographers, caterers, florists...</div>
+          <button class="filter-btn">⚡ Filters</button>
+        </div>
+
+        <div class="category-pills">
+          <div class="pill">All</div>
+          <div class="pill active">Photography</div>
+          <div class="pill">Catering</div>
+          <div class="pill">Florals</div>
+          <div class="pill">DJ / Band</div>
+          <div class="pill">Videography</div>
+          <div class="pill">Cake</div>
+          <div class="pill">Hair & MUA</div>
+          <div class="pill">Venue</div>
+        </div>
+
+        <div class="vendor-grid">
+          <div class="vendor-card">
+            <div class="vendor-photo" style="background:linear-gradient(135deg,#e8c0b4,#c9a0a0);">
+              <div class="vendor-photo-emoji">📷</div>
+              <span class="vendor-available vendor-avail-tag">✓ Available</span>
+            </div>
+            <div class="vendor-info">
+              <div class="vendor-name">Golden Hour Co.</div>
+              <div class="vendor-type">Photography</div>
+              <div class="stars">★★★★★ <span>(142 reviews)</span></div>
+              <div class="vendor-price">$3,500 – $6,000</div>
+              <div class="vendor-actions">
+                <button class="btn btn-outline">View</button>
+                <button class="btn btn-primary">Message</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="vendor-card">
+            <div class="vendor-photo" style="background:linear-gradient(135deg,#b4c8b4,#8fb08f);">
+              <div class="vendor-photo-emoji">📸</div>
+              <span class="vendor-available vendor-avail-tag">✓ Available</span>
+            </div>
+            <div class="vendor-info">
+              <div class="vendor-name">Studio Luz</div>
+              <div class="vendor-type">Photography & Video</div>
+              <div class="stars">★★★★★ <span>(67 reviews)</span></div>
+              <div class="vendor-price">$4,200 – $7,500</div>
+              <div class="vendor-actions">
+                <button class="btn btn-outline">View</button>
+                <button class="btn btn-primary">Message</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="vendor-card">
+            <div class="vendor-photo" style="background:linear-gradient(135deg,#d4c0e0,#b8a0cc);">
+              <div class="vendor-photo-emoji">📷</div>
+              <span class="vendor-available vendor-unavail-tag">Oct 12 Booked</span>
+            </div>
+            <div class="vendor-info">
+              <div class="vendor-name">Cecile Renard Photo</div>
+              <div class="vendor-type">Photography</div>
+              <div class="stars">★★★★☆ <span>(89 reviews)</span></div>
+              <div class="vendor-price">$2,800 – $5,000</div>
+              <div class="vendor-actions">
+                <button class="btn btn-outline" style="flex:2">View Profile</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="vendor-card">
+            <div class="vendor-photo" style="background:linear-gradient(135deg,#c0d4e0,#a0b8cc);">
+              <div class="vendor-photo-emoji">🎞</div>
+              <span class="vendor-available vendor-avail-tag">✓ Available</span>
+            </div>
+            <div class="vendor-info">
+              <div class="vendor-name">Frame & Story</div>
+              <div class="vendor-type">Videography</div>
+              <div class="stars">★★★★★ <span>(54 reviews)</span></div>
+              <div class="vendor-price">$3,000 – $5,500</div>
+              <div class="vendor-actions">
+                <button class="btn btn-outline">View</button>
+                <button class="btn btn-primary">Message</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════
+     SCREEN 3 — EVENT WORKSPACE
+════════════════════════════════════════════ -->
+<div id="workspace" class="screen">
+  <div class="topbar">
+    <div class="logo">Wedding<span>OS</span></div>
+    <div class="topbar-right">
+      <button class="icon-btn">🔔</button>
+      <div class="avatar">SJ</div>
+      <span class="topbar-name">Sarah & James</span>
+    </div>
+  </div>
+  <div class="workspace-body">
+    <div class="channel-sidebar">
+      <div class="workspace-name">
+        Sarah & James
+        <span>Oct 12, 2026 · Chicago</span>
+      </div>
+
+      <div class="channel-section">Channels</div>
+      <div class="channel-item">💬 &nbsp;general</div>
+      <div class="channel-item active">📷 &nbsp;photography <span class="ch-badge">2</span></div>
+      <div class="channel-item">🍽 &nbsp;catering <span class="ch-badge">1</span></div>
+      <div class="channel-item">💐 &nbsp;florals</div>
+      <div class="channel-item">🎵 &nbsp;music</div>
+      <div class="channel-item">🏛 &nbsp;venue</div>
+      <div class="channel-item">🎂 &nbsp;cake</div>
+      <div class="ch-add">+ Add channel</div>
+
+      <div class="channel-section" style="margin-top:8px">Planning</div>
+      <div class="channel-item">📋 &nbsp;Checklist</div>
+      <div class="channel-item">💰 &nbsp;Budget</div>
+      <div class="channel-item">📅 &nbsp;Timeline</div>
+
+      <div class="channel-section" style="margin-top:8px">People</div>
+      <div class="channel-item">👤 &nbsp;Sarah M.</div>
+      <div class="channel-item">👤 &nbsp;James T.</div>
+      <div class="channel-item">👤 &nbsp;Mom (Linda)</div>
+      <div class="channel-item">🏢 &nbsp;Golden Hour Co.</div>
+      <div class="channel-item">🏢 &nbsp;Harvest Table</div>
+      <div class="channel-item">🏢 &nbsp;Bloom & Gather</div>
+      <div class="ch-add">+ Invite vendor</div>
+    </div>
+
+    <div class="chat-area">
+      <div class="chat-header">
+        <div>
+          <div class="chat-channel-name">📷 &nbsp;photography</div>
+          <div class="chat-channel-sub">Golden Hour Co. · Alex Chen + Sarah & James</div>
+        </div>
+        <div class="chat-header-right">
+          <div class="header-pill">📋 Shot list</div>
+          <div class="header-pill">📅 Schedule call</div>
+          <div class="header-pill">👥 2 members</div>
+        </div>
+      </div>
+
+      <div class="messages">
+        <div class="divider">Feb 18</div>
+
+        <div class="msg-group">
+          <div class="msg-ava ava-vendor">AC</div>
+          <div class="msg-content">
+            <div class="msg-meta">
+              <span class="msg-author">Alex Chen</span>
+              <span class="msg-author-tag tag-vendor">Golden Hour Co.</span>
+              <span class="msg-ts">10:14 AM</span>
+            </div>
+            <div class="msg-body">
+              Hey! I've put together a shot list draft based on your questionnaire. Can we hop on a call this week to walk through it? I want to make sure we capture all the important moments.
+            </div>
+            <div class="attachment">📎 &nbsp;Shot_List_Draft_v1.pdf &nbsp;<span style="color:var(--text-light);font-weight:400">·&nbsp; 124 KB</span></div>
+          </div>
+        </div>
+
+        <div class="msg-group">
+          <div class="msg-ava ava-couple">SM</div>
+          <div class="msg-content">
+            <div class="msg-meta">
+              <span class="msg-author">Sarah M.</span>
+              <span class="msg-author-tag tag-couple">Couple</span>
+              <span class="msg-ts">11:32 AM</span>
+            </div>
+            <div class="msg-body">
+              This looks amazing, Alex! Thursday works great for us. Can James join the call too? He had a few ideas about the ceremony shots.
+            </div>
+          </div>
+        </div>
+
+        <div class="msg-group">
+          <div class="msg-ava ava-vendor">AC</div>
+          <div class="msg-content">
+            <div class="msg-meta">
+              <span class="msg-author">Alex Chen</span>
+              <span class="msg-author-tag tag-vendor">Golden Hour Co.</span>
+              <span class="msg-ts">11:45 AM</span>
+            </div>
+            <div class="msg-body">
+              Of course! The more the merrier 😄 I'll send a calendar invite for Thursday at 2pm.<br /><br />
+              Also — do you have a specific golden hour window in mind for outdoor portraits? The venue orientation matters a lot for October light.
+            </div>
+          </div>
+        </div>
+
+        <div class="divider">Today</div>
+
+        <div class="msg-group">
+          <div class="msg-ava ava-couple">SM</div>
+          <div class="msg-content">
+            <div class="msg-meta">
+              <span class="msg-author">Sarah M.</span>
+              <span class="msg-author-tag tag-couple">Couple</span>
+              <span class="msg-ts">9:02 AM</span>
+            </div>
+            <div class="msg-body">
+              Around 6:30pm should be perfect — the venue has a west-facing garden that we both love. Can't wait for the call!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <div class="chat-input-box">
+          <button class="chat-icon-btn">＋</button>
+          <input class="chat-input" type="text" placeholder="Message #photography..." />
+          <button class="chat-icon-btn">📎</button>
+          <button class="chat-icon-btn">😊</button>
+          <button class="send-btn">↑</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-panel">
+      <div class="dp-title">Members</div>
+      <div class="dp-vendor">
+        <div class="dp-ava">AC</div>
+        <div><div class="dp-name">Alex Chen</div><div class="dp-role">Golden Hour Co.</div></div>
+      </div>
+      <div class="dp-vendor">
+        <div class="dp-ava" style="background:var(--blue-bg);color:var(--blue);">SM</div>
+        <div><div class="dp-name">Sarah M.</div><div class="dp-role">Couple</div></div>
+      </div>
+      <div class="dp-vendor">
+        <div class="dp-ava" style="background:var(--blue-bg);color:var(--blue);">JT</div>
+        <div><div class="dp-name">James T.</div><div class="dp-role">Couple</div></div>
+      </div>
+
+      <div class="dp-files" style="margin-top:20px;">
+        <div class="dp-title">Files</div>
+        <div class="dp-file">📄 &nbsp;Shot_List_Draft_v1.pdf</div>
+        <div class="dp-file">📄 &nbsp;Questionnaire_Responses.pdf</div>
+        <div class="dp-file">🖼 &nbsp;Venue_reference_photos.zip</div>
+      </div>
+
+      <div style="margin-top:20px;">
+        <div class="dp-title">Upcoming</div>
+        <div style="background:var(--rose-light);border-radius:8px;padding:12px;font-size:13px;">
+          <div style="font-weight:600;color:var(--rose);">📞 Call · Thu Feb 27</div>
+          <div style="color:var(--text-mid);margin-top:3px;">2:00 PM · 45 min</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function show(id, btn) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('visible'));
+    document.getElementById(id).classList.add('visible');
+    document.querySelectorAll('.switcher button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>
